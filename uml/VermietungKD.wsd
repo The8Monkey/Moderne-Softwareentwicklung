@@ -1,0 +1,53 @@
+@startuml
+title
+Klassendiagramm Vermietung Vertragsverwaltung
+end title
+
+header getter, setter und Konstuktor wurden aus Gründen der Übersichtlichkeit nicht dargestellt
+
+abstract Vertrag {
+    -vertragStart : date
+    -vertragEnde : date
+}
+
+class Mietvertrag {
+    +getMiethöhe(Mietraum)
+}
+
+class Untermietvertrag {
+    -miethöhe : double
+}
+
+abstract Person {
+    -vorname : string
+    -nachname : string
+    -gebutstag : date
+    -mail : string
+}
+
+class Mieter {
+    -iban : string
+}
+
+class Untermieter {
+    -hauptmieter : Mieter
+}
+
+class Mietraum {
+    -qMeter : int
+    -zimmer : double
+    -qMeterPreis : double
+    -mietraumStatus : MietraumStatus
+}
+
+enum MietraumStatus {
+    Gewerbe
+    Privat
+    Leerstand
+}
+
+Mietvertrag -up-|> Vertrag
+Untermietvertrag -up-|> Vertrag
+Mieter -up-|> Person
+Untermieter -up-|> Person
+@enduml

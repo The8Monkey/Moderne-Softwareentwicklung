@@ -30,9 +30,14 @@ class Person{
 }
 
 class Leiter{
-    -leitungsList : Organisationseinheit = []
+    -leitungsList : Organisationseinheit
     ' +getLeitung()
     ' +setLeitung()
+}
+
+class Admin{
+    +createPerson(person Person)
+    +removePerson(person Person)
 }
 
 class Organisationseinheit{
@@ -66,16 +71,17 @@ class DatabaseConnector{
     -benutzer : string
     -passwort : string
     -connection : Object
-    -createConnection(host : sting, port : int, benutzer : string, passwort : string)
-    +getConnection()
+    +execute(query : string)
     +closeConnection()
 }
 
 
 
 Person <|- Leiter
+Person <|-- Admin
 Organisationseinheit "1" -- "0..*" Person 
 Organisationseinheit "1" - "1" Leiter 
 Person "1" -- "1" Abwesenheit
-' Grund ..> Abwesenheit
+Leiter "1" -- "1" Abwesenheit
+Grund -- Abwesenheit
 @enduml
