@@ -1,0 +1,42 @@
+@startuml
+title
+Komponentendiagramm Anwesenheitsliste
+end title
+left to right direction
+
+
+database "PostgreSQL Server" {
+    [PostgreSQL]<<component>>
+    Psycopg -[PostgreSQL]
+}
+
+node "clients" {
+    [Webbrowser]
+}
+
+node "Anwendungsserver"{
+    [Flask App]<<component>>
+    [Flask App] -up- REST
+
+    [Mailserver] <<component>>
+    [Mailserver]- SMTP
+}
+
+node "KeyCloak Server"{
+    [KeyCloak] <<component>>
+}
+
+node "Webserver" {
+    [React App] <<component>>
+}
+
+[React App]-- HTTPS
+[React App]-- ics_export
+[Flask App]--( Psycopg
+[Flask App]-left-( SMTP
+[Flask App]-right-( KeyCloakAdapter
+[React App]--( REST
+[Webbrowser]--( HTTPS
+[KeyCloak]-left- KeyCloakAdapter
+[React App]-( KeyCloakAdapter
+@enduml
