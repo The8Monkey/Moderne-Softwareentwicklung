@@ -8,14 +8,16 @@ header getter, setter und Konstuktor wurden aus Gründen der Übersichtlichkeit 
 abstract Vertrag {
     -vertragStart : date
     -vertragEnde : date
+    +getMietvertrag(dbConnector : DbConnector)
 }
 
 class Mietvertrag {
-    +getMiethöhe(Mietraum)
+    +getMiethöhe(mietraum : Mietraum)
 }
 
 class Untermietvertrag {
     -miethöhe : double
+    -untermieter : Untermieter
 }
 
 abstract Person {
@@ -23,14 +25,18 @@ abstract Person {
     -nachname : string
     -gebutstag : date
     -mail : string
+    -mietraum : Mietraum
+    +getPerson(dbConnector : DbConnector)
 }
 
 class Mieter {
     -iban : string
+    -mietvertrag : Mietvertrag
 }
 
 class Untermieter {
     -hauptmieter : Mieter
+    -untermietvertrag : Untermietvertrag
 }
 
 class Mietraum {
@@ -38,6 +44,7 @@ class Mietraum {
     -zimmer : double
     -qMeterPreis : double
     -mietraumStatus : MietraumStatus
+    +getMietraum(dbConnector : DbConnector)
 }
 
 enum MietraumStatus {
@@ -46,8 +53,28 @@ enum MietraumStatus {
     Leerstand
 }
 
-Mietvertrag -up-|> Vertrag
-Untermietvertrag -up-|> Vertrag
-Mieter -up-|> Person
-Untermieter -up-|> Person
+class DbConnector {
+    -host : string
+    -port : int
+    -benutzer : string
+    -passwort : string
+    -connection : Object
+    +execute(query : string)
+    +closeConnection()
+}
+
+' Vererbungen
+Mietvertrag -|> Vertrag
+Untermietvertrag -|> Vertrag
+Mieter -|> Person
+Untermieter -|> Person
+
+' Assoziationen
+Mieter "0..*"*--"1" Untermieter
+Untermieter "1"--"1" Untermietvertrag
+Mieter "1..*"--"1" Mietvertrag
+Mietraum "1"--"0..*" Person 
+Mietraum -- DbConnector
+Person -right- DbConnector
+Vertrag -up- DbConnector
 @enduml

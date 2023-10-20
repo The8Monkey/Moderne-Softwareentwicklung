@@ -1,9 +1,15 @@
 @startuml
 title
-Komponentendiagramm Anwesenheitsliste
+Komponentendiagramm Mietverwaltung
 end title
 left to right direction
 
+legend top left
+  KeyCloak: "Keycloak provides user federation, strong authentication, 
+  user management, fine-grained authorization, and more." https://www.keycloak.org/
+  
+  Flask: Python micro Framework zum erstellen Schnittstellen und mehr. https://flask.palletsprojects.com/en/3.0.x/
+endlegend
 
 database "PostgreSQL Server" {
     [PostgreSQL]<<component>>
@@ -31,7 +37,7 @@ node "Webserver" {
 }
 
 [React App]-- HTTPS
-[React App]-- ics_export
+[React App]-- übersichts_export
 [Flask App]--( Psycopg
 [Flask App]-left-( SMTP
 [Flask App]-right-( KeyCloakAdapter
