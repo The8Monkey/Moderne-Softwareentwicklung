@@ -1,0 +1,33 @@
+@startuml Aktivitätsdiagramm
+title
+Aktivitätsdiagramm Mietvertrag schließen
+end title
+ 
+start
+if (leere Mietraum vorhanden?) then (ja)
+    repeat
+        if (Mieter im System vorhanden?) then (nein)
+            :Neuen Mieter anlegen;
+        else (ja)
+        endif    
+    repeat while (alle Mieter im System vorhande?) is (nein) not (ja)
+    if (gibt es Untermieter?) then (ja)
+    repeat
+        if (Untermieter im System vorhanden?) then (nein)
+            :Neuen Untermieter anlegen;
+            :Untermietvertrag anlegen;
+            :Hauptmieter eintragen;
+            :Miethöhe festlegen;
+        else (ja)
+        endif    
+    repeat while (alle Untermieter im System vorhande?) is (nein) not (ja)   
+    else (nein)
+    endif    
+    :Mietraum der Person zuweisen;
+    :Neuen Mietvertrag anlegen;
+    :Miethöhe ermitteln;
+    :Vertrags start festlegen;
+else (nein)
+endif    
+stop
+@enduml

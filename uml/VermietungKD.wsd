@@ -1,4 +1,4 @@
-@startuml
+@startuml Klassendiagramm
 title
 Klassendiagramm Vermietung Vertragsverwaltung
 end title
