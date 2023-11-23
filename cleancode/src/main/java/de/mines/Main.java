@@ -1,4 +1,4 @@
-package mines;
+package main.java.de.mines;
 
 public class Main {
 

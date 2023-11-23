@@ -1,4 +1,4 @@
-package mines;
+package main.java.de.mines;
 
 import java.util.concurrent.ThreadLocalRandom;
 
