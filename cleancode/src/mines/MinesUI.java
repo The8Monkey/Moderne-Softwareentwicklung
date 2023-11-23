@@ -136,6 +136,7 @@ public class MinesUI {
 				}
 			}
 
+			/* Recursiv funktion to reveal all Buttons according to the rules of mines */
 			private void revealNextButton(int field_x, int field_y) {
 				if (field[field_x][field_y] == 0) {
 					int current_x;
