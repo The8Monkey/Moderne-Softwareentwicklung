@@ -44,9 +44,9 @@ def multiply():
 @app.route('/divide', methods=['POST'])
 def divide():
     data = request.get_json()
-    if data['num2'] == 0:
-        return jsonify({'error': 'Division by zero is not allowed'})
     if check_keys(data, required_keys):
+        if data['num2'] == 0:
+            return jsonify({'error': 'Division by zero is not allowed'})
         result = data['num1'] / data['num2']
         return jsonify({'result': result})
     else:
